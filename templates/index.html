@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static%}
+
+{% load account %}
+
+
+{% load socialaccount %}
+<html>
+{% block headblock %}
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static "css/font-awesome.css" %}">
+	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+	<link rel="stylesheet" href="{% static "css/animate.css" %}">
+	<link rel="stylesheet" href="{% static "css/prettyPhoto.css" %}">
+	<link href="{% static "style.css"%}" rel="stylesheet">
+	<link href="{% static "css/responsive.css"%}" rel="stylesheet">
+
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+{%endblock headblock%}
+{% block topblock %}
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top" style="position: absolute">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img src="{% static "images/logo.png"%}" alt=""></a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="smooth-scroll"><a href="#home">Главная</a></li>
+					<li class="smooth-scroll"><a href="#service">Сервис</a></li>
+					<li class="smooth-scroll"><a href="#news">Информация</a></li>
+
+			</ul>
+			{% if request.user.is_authenticated %}
+
+
+				<div class="userbox">
+					{% for account in user.socialaccount_set.all %}
+	        <img width="50" height="50" src="{{ account.get_avatar_url }}">
+	        {% user_display user %}
+	        {{ user.profile.bio}}₽
+				  <a href="logout/"><img src="{% static "images/out.png"%}" alt="logo"></a>
+	        {% endfor %}
+					</div>
+					{% else %}
+<div class='userbox'><a  href="{% provider_login_url "steam" method="oauth2" %}"><img src="{%static "images/sits_02.png"%}"></img></a></div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</nav>
+</header>
+
+<!--Home Section-->
+<section id="home">
+	<div class="overlay"></div>
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<!--Indicator-->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+			<li data-target="#myCarousel" data-slide-to="3"></li>
+		</ol>
+		<div class="carousel-inner" role="listbox">
+			<div class="item active">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 wow bounceInUp">
+							<div class="home-text text-center">
+								<h1>DROPDEALER</h1>
+
+								<h3>Гарантированная окупаемость предметов!</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 wow bounceInUp">
+							<div class="home-text text-center">
+								<h1>DROPDEALER</h1>
+
+								<h3>Арканы каждый день!</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 wow bounceInUp">
+							<div class="home-text text-center">
+								<h1>DROPDEALER</h1>
+
+								<h3>Первые Беспроигрышные кейсы в истории!</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 wow bounceInUp">
+							<div class="home-text text-center">
+								<h1>DROPDEALER</h1>
+
+								<h3>Пускай никто не уйдет обиженным!</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+{%endblock topblock%}
+
+{% block bodyblock%}
+<!--SERVICES AREA-->
+<section id="service">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12  wow bounce">
+				<div class="section-heading text-center text-uppercase  wow bounceInUp">
+				    	{% if request.user.is_authenticated %}
+
+				    <h4>Сайт находится на техническом обслуживании, большая часть функционала может быть недоступна, приносим свои извинения.</h4>
+				    {%endif%}
+					<h2>НАШИ <span>КЕЙСЫ</span></h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-md-3  wow bounceIn">
+				<div class="single-item text-center">
+					<img src="{% static "images/1.png"%}"></img>
+					<h4 class="text-uppercase">Редкий Кейс</h4>
+
+					<p>Думаешь, что рарки остались где-то далеко в 2013 и сейчас они никому не нужны? Как бы не так! Этот кейс поменяет твое мнение.</p>
+					{% if request.user.is_authenticated %}
+					<a href="case/rare" class="btn btn-red text-uppercase">открыть</a>
+					{% else %}
+					<a  href="{% provider_login_url "steam" method="oauth2" %}" class="btn btn-red text-uppercase">открыть</a>
+					{%endif%}
+
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3 wow bounceInUp">
+				<div class="single-item text-center">
+				<img src="{% static "images/2.png"%}"></img>
+					<h4 class="text-uppercase">МИСТИЧЕСКИЙ кейс</h4>
+
+					<p>Этот сундук такой же мистический как и та система, которая подбирает тебе тиммейтов в Доте 2. Только в хорошую сторону :)</p>
+           {% if request.user.is_authenticated %}
+					 <a href="case/mythical" class="btn btn-red text-uppercase">открыть</a>
+					 {% else %}
+					 <a  href="{% provider_login_url "steam" method="oauth2" %}" class="btn btn-red text-uppercase">открыть</a>
+					 {%endif%}
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3 wow pulse">
+				<div class="single-item text-center">
+					<img src="{% static "images/3.png"%}"></img>
+					<h4 class="text-uppercase">Легендарный кейс</h4>
+
+					<p>– Все знают про этот профитный кейс, – говорит бармен, – он стал частью легенды. Да ты весь стал частью легенды, приятель.</p>
+					{% if request.user.is_authenticated %}
+					<a href="case/legendary" class="btn btn-red text-uppercase">открыть</a>
+					{% else %}
+					<a  href="{% provider_login_url "steam" method="oauth2" %}" class="btn btn-red text-uppercase">открыть</a>
+					{%endif%}
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3 wow shake">
+				<div class="single-item text-center">
+					<img src="{% static "images/4.png"%}"></img>
+					<h4 class="text-uppercase">Арканный Кейс</h4>
+
+					<p>Все арканы, что только можно купить за деньги, собраны в этом кейсе. Все самые яркие сеты, которые можно купить за деньги — тоже здесь.</p>
+					{% if request.user.is_authenticated %}
+					<a href="case/arcane" class="btn btn-red text-uppercase">открыть</a>
+					{% else %}
+					<a  href="{% provider_login_url "steam" method="oauth2" %}" class="btn btn-red text-uppercase">открыть</a>
+					{%endif%}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+{% if request.user.is_authenticated %}
+	<div class="inventory section-heading text-center text-uppercase  wow bounceInUp">
+		<h2>Ваш <span>Инвентарь</span></h2>
+ <div class="polotno">
+	 {% for item in items %}
+	 <div class="itemimg" >
+	 <img  src="{{ STATIC_PREFIX }}static/images/{{item.name}}.png">
+	 <img class="clock" src= "{% static  "images/clock.png"%}">
+	 {{item.yearpublished}}
+ </div>
+	 {%endfor%}
+
+
+
+</div>
+</div>
+<center>
+<a href="#" class="btn btn-red text-uppercase" style="background: red;">вывести</a>
+</center>
+{% endif %}
+</section>
+<!--team section-->
+
+
+<!--our news area-->
+<section id="news">
+	<div class="section-heading news-heading text-center text-uppercase wow swing">
+		<h2>Как Это <span>Работает?</span></h2>
+	</div>
+<div class="useragreement">
+	<p>DROPDEALER - это сайт с реальными кейсами Dota 2 с большими шансами выиграть.
+		 Шансы настолько высоки, что при покупке любого кейса, вы почти всегда «окупаете» кейс.
+		  Предупреждаем, что в процессе вывода выигрыша с сайта возможны задержки по времени.
+			 Именно поэтому, чем БОЛЬШЕ вы берете, тем БОЛЬШЕ вы получаете.
+			 Так же у нас проверенная и честная администрация, и по поводу любых вопросов всегда можно обратиться.
+			 Для авторизации на сайте вы всегда можете использовать стим.
+			  Ты до сих пор читаешь это? Тогда иди скорей и крути!
+				 Пока весь крутой шмот не разобрали!
+</p>
+</div>
+
+
+</section>
+<!--contact heading-->
+{% if request.user.is_authenticated %}
+
+{% endif %}
+
+
+<!-- footer-area-->
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-2 text-center">
+				<img src="{% static "images/logo.png"%}" alt="logo">
+			</div>
+			<div class="col-sm-8">
+				<div class="footer-p text-center">
+					<p>© Copyright 2019 - 2020, All Rights Reserved</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</footer>
+<script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/isotope.2.2.2min.js" %}"></script>
+<script src="{% static "js/wow.min.js"%}"></script>
+<script src="{% static "js/jquery.prettyPhoto.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="{% static "js/main.js" %}"></script>
+{% endblock bodyblock%}
+</html>

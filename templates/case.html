@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block headblock %}
+    {% csrf_token %}
+    {% load account %}
+    {% load staticfiles %}
+    {% load socialaccount %}
+
+    	<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    	<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+    	<link rel="stylesheet" href="{% static "css/font-awesome.css" %}">
+    	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    	<link rel="stylesheet" href="{% static "css/animate.css" %}">
+    	<link rel="stylesheet" href="{% static "css/prettyPhoto.css" %}">
+    	<link href="{% static "style.css"%}" rel="stylesheet">
+    	<link href="{% static "css/responsive.css"%}" rel="stylesheet">
+
+
+   <link rel="stylesheet" href="{% static "css/styles.css" %}" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<style type="text/css">
+.qwerty{
+  width: 300px;
+  height: 400px;
+  color: white;
+
+}
+body{
+background-color:#000000;}
+
+  * {
+padding: 0;
+margin: 0;
+}
+hr {
+height: 30px;
+border-style: solid;
+border-color: white;
+border-width: 1px 0 0 0;
+border-radius: 20px;
+}
+hr:before {
+display: block;
+content: "";
+height: 30px;
+margin-top: -31px;
+border-style: solid;
+border-color: white;
+border-width: 0 0 1px 0;
+border-radius: 20px;
+}
+#case{
+position: relative;
+border: 2px solid red;
+top: 10px;
+width: 440px;
+height: 120px;
+background-color: rgba(0, 0, 0, 0.5) !important;
+color: white;
+}
+
+li {
+list-style: none;
+display: inline-block;
+float: left;
+font-family: -apple-
+}
+.carousel-indicators{
+left: 1275px;
+ }
+.window {
+overflow: hidden;
+position: relative;
+ width: 25000px;
+height: 143px;
+right: 0px;
+}
+
+.wraper {
+position: relative;
+margin: auto;
+bottom: 5px;
+width: 408px;
+overflow-x: hidden;
+overflow-y: hidden;
+border: 4px solid red;
+border-radius: 2px;
+}
+
+.list {
+position: relative;
+margin-left: 0;
+display: inline-block;
+}
+
+.list li {
+border: 4px solid transparent ;
+}
+.list li img {
+width: 130px;
+height: 130px;
+}
+
+.arrowup {
+position: absolute;
+bottom: 0;
+right: 200px;
+z-index: 1;
+width: 0;
+height: 0;
+border-bottom: 40px solid red;
+border-left: 5px solid transparent;
+border-right: 5px solid transparent;
+}
+
+.arrowdown {
+position: absolute;
+top: 0;
+right: 200px;
+z-index: 1;
+width: 0;
+height: 0;
+border-top: 40px solid red;
+border-left: 5px solid transparent;
+border-right: 5px solid transparent;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+            for (i = 0; i < 3; i++) {
+                $(".list li").clone().appendTo(".list");
+            }
+            var x=60
+           function selfRandom(){
+             var _case = "{{object.name}}"
+             var _user = "{% user_display user %}"
+            $.get('/hello'+"/"+_user+"/"+_case, function (num){
+
+              x = num
+
+            })
+          }
+
+            $('#button').click(async function () {
+              let value = await selfRandom()
+
+              alert("hey")
+
+                $('.window').css({
+                    right: "0"
+                })
+                $('.list li').css({
+                    border: '4px solid transparent'
+                })
+
+                $('.list li:eq('+x+')').css({
+                    border:'4px solid #DC143C'
+                })
+                $('.window').animate({
+                    right: ((x*130)+(x*8-12)-119)
+                }, 10000);
+            });
+        });
+
+</script>
+
+{% endblock headblock %}
+{% block topblock %}
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img src="img/logo.png" alt=""></a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+          <a class="navbar-brand left"  href="#"><img src="{% static "images/logo.png"%}" alt=""></a>
+					<li class=" smooth-scroll"><a href="../..">Главная</a></li>
+				</ul>
+        <div class="userbox">
+        {% for account in user.socialaccount_set.all %}
+        <img width="50" height="50" src="{{ account.get_avatar_url }}">
+        {% user_display user %}
+        {{ user.profile.bio}}₽
+        {% endfor %}
+</div>
+			</div>
+		</div>
+	</nav>
+</header>
+
+<!--Home Section-->
+<section id="home">
+	<div class="overlay"></div>
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<!--Indicator-->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+			<li data-target="#myCarousel" data-slide-to="3"></li>
+		</ol>
+		<div class="carousel-inner" role="listbox">
+			<div class="item active">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 wow bounceInUp">
+							<div class="home-text text-center">
+								<h1>DROPDEALER</h1>
+
+								<h3>Гарантированная окупаемость предметов!</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 wow bounceInUp">
+							<div class="home-text text-center">
+								<h1>DROPDEALER</h1>
+
+								<h3>Арканы каждый день!</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 wow bounceInUp">
+							<div class="home-text text-center">
+								<h1>DROPDEALER</h1>
+
+								<h3>Первые Беспроигрышные кейсы в истории!</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 wow bounceInUp">
+							<div class="home-text text-center">
+								<h1>DROPDEALER</h1>
+
+								<h3>Пускай никто не уйдет обиженным!</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+{%endblock topblock%}
+
+    {% block bodyblock %}
+     <center>
+
+    <div class="qwerty">
+      <div class="single-item text-center">
+        <img src="{{ object.caseimg.url}}"></img>
+        <h4 class="text-uppercase">{{ object.name}}</h4>
+
+        <p>{{object.describe}}</p>
+
+      </div>
+    </div>
+ </center>
+<div class='casedrop'>
+
+    <div class="itemimg" >
+      <p>{{object.nam1}}</p>
+  <img class="imagesline"  src="{{object.img1.url}}" alt="">
+</div>
+<div class="itemimg" >
+    <p>{{object.nam2}}</p>
+  <img  class="imagesline" src="{{object.img2.url}}" alt="">
+  </div>
+  <div class="itemimg" >
+      <p>{{object.nam3}}</p>
+  <img class="imagesline" src="{{object.img3.url}}"alt="">
+  </div>
+  <div class="itemimg" >
+      <p>{{object.nam4}}</p>
+  <img class="imagesline" src="{{object.img4.url}}" alt="">
+  </div>
+  <div class="itemimg" >
+      <p>{{object.nam5}}</p>
+  <img  class="imagesline"src="{{object.img5.url}}" alt="">
+  </div>
+  <div class="itemimg" >
+      <p>{{object.nam6}}</p>
+  <img class="imagesline" src="{{object.img6.url}}" alt="">
+  </div>
+</div>
+
+    <div class="wraper">
+            <div class="arrowup"></div>
+            <div class="arrowdown"></div>
+            <div class="window">
+
+                <ul class="list">
+                  <li><img src="{{object.img1.url}}" alt=""></li>
+                  <li><img src="{{object.img2.url}}" alt=""></li>
+                  <li><img src="{{object.img3.url}}"alt=""></li>
+                  <li><img src="{{object.img4.url}}" alt=""></li>
+                  <li><img src="{{object.img5.url}}" alt=""></li>
+                  <li><img src="{{object.img6.url}}" alt=""></li>
+                </ul>
+                <ul class="list">
+
+      </ul>
+            </div>
+        </div>
+        <p style="text-align: center">
+            <button id="button" class="btn btn-red text-uppercase">ОТкрыть</button>
+            <div class="win">
+                <ul>
+
+                </ul>
+            </div>
+
+
+            <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
+            <script src="{% static "js/bootstrap.min.js" %}"></script>
+            <script src="{% static "js/isotope.2.2.2min.js" %}"></script>
+            <script src="https://maps.googleapis.com/maps/api/js"></script>
+            <script src="{% static "js/wow.min.js"%}"></script>
+            <script src="{% static "js/jquery.prettyPhoto.js" %}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+            <script src="{% static "js/main.js" %}"></script>
+    {%endblock bodyblock%}

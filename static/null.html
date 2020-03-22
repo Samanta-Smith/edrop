@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% load account %}
+{% load staticfiles %}
+{% load socialaccount %}
+<html>
+
+{% block headblock %}
+  <meta charset="utf-8" />
+  <title>edrop</title>
+  <link rel="stylesheet" href="{% static "css/styles.css" %}" />
+{%endblock headblock%}
+{% block topblock %}
+<img src="{%static "images/3.png"%}"></img>
+<div id="topplus"><a href="{% provider_login_url "steam" method="oauth2" %}"><img src="{%static "images/steam.png"%}"></img></div></a>
+{%endblock topblock%}
+
+{% block bodyblock%}
+{% for account in user.socialaccount_set.all %}
+
+{% comment %} show avatar from url {% endcomment %}
+<h2 style="text-transform:capitalize;">{{ account.provider }} account data</h2>
+
+<p><img width="50" height="50" src="{{ account.get_avatar_url }}" /></p>
+
+<p>UID: <a href="{{ account.extra_data.link }}">{{ account.uid }}</a></p>
+{% user_display user %}
+<p>{{ user.profile.bio}}</p>
+
+<p>First Name: {{ account.extra_data.Profile.bio }}</p>
+
+<p>Last Name: {{ account.extra_data.last_name }}</p>
+
+<p>Dashboard Link:
+  <a href="{{ account.extra_data.link }}">{{ account.extra_data.link }}</a></p>
+{% empty %}
+<p>you haven't any social account please</p>
+{% endfor %}
+{%endblock bodyblock%}
+<hr>

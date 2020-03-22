@@ -1,0 +1,13 @@
+.topblock{
+  background-color:#000000;
+  border: 3px solid #808080;
+  height: 197px;
+  padding: 0px !important;
+  margin:0px !important;
+}
+body{
+  background-image: url("../images/white-cubes.png")
+}
+#topplus{
+  float: right;
+}
